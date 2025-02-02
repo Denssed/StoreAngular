@@ -1,0 +1,53 @@
+<div class="fixed inset-0 flex items-center justify-center z-50">
+    <!-- Overlay -->
+    <div class="fixed inset-0 bg-gray-800 bg-opacity-75"></div>
+    <!-- Modal -->
+    <div class="bg-white p-6 rounded-xl shadow-lg w-xs z-10">
+        <div class="flex flex-col justify-center items-center gap-4 mb-4 text-center">
+            <div class="flex items-center justify-center gap-4 mb-4 text-center font-bold text-mainPurple">
+                <span>{{title}}</span>
+            </div>
+            @if (inCreateBatch || inUpdateBatch) {
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4 w-full">
+                <div class="flex flex-col">
+                    <label for="price" class="mb-2 font-semibold">Price:</label>
+                    <input id="price" formControlName="price" type="number" class="p-2 border rounded-md" />
+                </div>
+
+                <div class="flex flex-col">
+                    <label for="quantity" class="mb-2 font-semibold">Quantity:</label>
+                    <input id="quantity" formControlName="quantity" type="number" class="p-2 border rounded-md" />
+                </div>
+
+                <div class="flex flex-col">
+                    <label for="product" class="mb-2 font-semibold">Product:</label>
+                    <select id="product" formControlName="product" class="p-2 border rounded-md">
+                        <option *ngFor="let product of productsType" [value]="product.name">{{ product.name }}</option>
+                    </select>
+                </div>
+                <div class="flex flex-row items-center justify-center gap-4">
+                    <button type="submit"
+                        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Submit</button>
+                    <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                        (click)="close()">Close</button>
+                </div>
+            </form>
+            }
+
+            @if (inDeleteBatch) {
+                <div class="flex flex-row items-center justify-center gap-4">
+                    <button class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                        (click)="deleteBatch()">Delete</button>
+                    <button class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                        (click)="close()">Close</button>
+                </div>
+            }
+
+
+        </div>
+    </div>
+</div>
+
+@if (isServerError) {
+<app-presentation-modal [isServerError]="true" (closeModal)="closeOnServerErrorModal()"></app-presentation-modal>
+}

@@ -1,0 +1,49 @@
+<div class="flex items-center justify-center h-full w-full bg-gradient-to-r from-blue-500 to-purple-600">
+    <form class="flex flex-col bg-white p-6 rounded shadow-md w-xs" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="flex items-center justify-center py-6 font-bold text-2xl">
+            <h1>Store</h1>
+        </div>
+        <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" required>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+          Please enter a valid email
+        </mat-error>
+      </mat-form-field>
+    
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password" required>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          Password is required
+        </mat-error>
+      </mat-form-field>
+    
+      <button mat-raised-button color="primary" type="submit">Login</button>
+    </form>
+</div>
+
+@if (isLoginSuccess) {
+    <app-presentation-modal
+        [isLoginSuccess]="true"
+        (closeModal)="closeOnLoginSuccessModal()"
+    ></app-presentation-modal>
+}
+
+@if (isLoginFail) {
+    <app-presentation-modal
+        [isLoginFail]="true"
+        (closeModal)="closeOnLoginFailModal()"
+    ></app-presentation-modal>
+}
+
+@if (isServerError) {
+    <app-presentation-modal
+        [isServerError]="true"
+        (closeModal)="closeOnServerErrorModal()"
+    ></app-presentation-modal>
+}
+
