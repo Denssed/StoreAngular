@@ -10,6 +10,7 @@ type productDto = {
     price: number;
     batch: number;
     quantity: number;
+    onDiscount: boolean
 }
 
 type productData = {
@@ -25,7 +26,17 @@ type batchData = {
     entryDate: Date;
     price: number;
     quantity: number;
-    active:boolean
+    active:boolean,
 }
 
-export type { loginData, productDto, productData, batchData };
+type product = {
+    idProduct: number
+    name: string;
+    description: string;
+    price: number;
+    idBatch: number;
+    quantity: number;
+    onDiscount: boolean
+}
+
+export type { loginData, productDto, productData, batchData, product };
